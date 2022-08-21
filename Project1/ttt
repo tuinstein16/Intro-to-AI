@@ -1,0 +1,15 @@
+node, actions, pathcost = problem.getStartState(), [], 0
+    frontier = util.PriorityQueue()
+    frontier.push((node, actions), pathcost)
+    explored = []
+
+    while not frontier.isEmpty(): # if frontier is not empty
+        node, actions = frontier.pop() 
+        if problem.isGoalState(node):
+            return actions
+        explored.append(node)  
+        #n:node, a:list of actions, p:path cost
+        for n, a, p in problem.getSuccessors(node): #apply the successor function
+            if n not in explored and n not in frontier.heap:
+                frontier.push((n,actions + [a]), p)
+    return False #return failiure if the frontier is empty
